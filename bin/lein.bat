@@ -80,7 +80,7 @@ goto RUN
 rem parameters: TargetFileName Address
 powershell -? >nul 2>&1
 if NOT ERRORLEVEL 9009 (
-    powershell -Command "& {param($a,$f) (new-object System.Net.WebClient).DownloadFile($a, $f)}" %~2 %~1
+    powershell -Command "& {param($a,$f) $wc = (new-object System.Net.WebClient); $wc.Proxy.Credentials = [System.Net.CredentialCache]::DefaultNetworkCredentials; $wc.DownloadFile($a, $f)}" %~2 %~1
 ) else (
     wget >nul 2>&1
     if NOT ERRORLEVEL 9009 (
